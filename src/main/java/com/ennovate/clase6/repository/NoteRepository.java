@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
-
+// todo mover este repositorio a una interfaz para cubrir el consepto de solid
 @Repository
 public class NoteRepository {
 

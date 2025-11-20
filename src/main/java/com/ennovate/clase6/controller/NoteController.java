@@ -4,6 +4,7 @@ import com.ennovate.clase6.model.Note;
 import com.ennovate.clase6.model.NoteDto;
 import com.ennovate.clase6.service.NoteService;
 import com.ennovate.clase6.util.NoteMapperUtil;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class NoteController {
     }
 
     @PostMapping
-    public ResponseEntity<Note> create(@RequestBody NoteDto dto, @RequestParam String owner){
+    public ResponseEntity<Note> create(@Valid @RequestBody NoteDto dto, @RequestParam String owner){
         return ResponseEntity.created(URI.create("/api/notes"))
                 .body(noteService.create(NoteMapperUtil.transformNoteDto(dto,owner))
                 );
