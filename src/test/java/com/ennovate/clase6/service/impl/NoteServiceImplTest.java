@@ -4,10 +4,8 @@ import com.ennovate.clase6.model.Note;
 import com.ennovate.clase6.repository.NoteRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatchers;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+
+import org.mockito.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,8 +13,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class NoteServiceImplTest {
-
+public class NoteServiceImplTest {
     @Mock
     private NoteRepository repository;
 
@@ -24,8 +21,18 @@ class NoteServiceImplTest {
     private NoteServiceImpl service;
 
     @BeforeEach
-    void setUp() {
+    void setup(){
         MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    void createTest(){
+        Note note = getNote();
+        Mockito.when(repository.save(note)).thenReturn(note);
+
+        Note saved = service.create(note);
+        assertEquals("hello", saved.getTitle());
+        verify(repository, times(1)).save(note);
     }
 
     private Note getNote(){
@@ -35,6 +42,7 @@ class NoteServiceImplTest {
         note.setTitle("hello");
         return note;
     }
+
     @Test
     void testCreate() {
         Note note = getNote();
