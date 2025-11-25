@@ -15,13 +15,14 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @Profile("basic")
 public class SecurityConfigBasic {
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((request)
-                // habilita el swaggerfile y lo deja publico
-                ->request.requestMatchers("/","/public/**").permitAll()
-                .anyRequest().authenticated()
-        )
+                        // habilita el swaggerfile y lo deja publico
+                        -> request.requestMatchers("/", "/public/**").permitAll()
+                        .anyRequest().authenticated()
+                )
                 // crea login publico
                 .formLogin((form)
                         -> form.loginProcessingUrl("/login").permitAll())
@@ -29,13 +30,11 @@ public class SecurityConfigBasic {
                 .logout(logout ->
                         logout.logoutUrl("/logout").permitAll()
                 );
-
-
         return http.build();
     }
 
     @Bean
-    public UserDetailsService userDetailsService(){
+    public UserDetailsService userDetailsService() {
         UserDetails user = User
                 .withDefaultPasswordEncoder()
                 .username("user")
@@ -44,5 +43,4 @@ public class SecurityConfigBasic {
                 .build();
         return new InMemoryUserDetailsManager(user);
     }
-
 }

@@ -5,6 +5,7 @@ import lombok.NonNull;
 
 @Data
 public class NoteDto {
+
     @NonNull
     private String title;
     @NonNull

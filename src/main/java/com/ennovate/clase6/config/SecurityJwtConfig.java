@@ -23,9 +23,9 @@ import java.util.List;
 @EnableMethodSecurity(prePostEnabled = true)
 @Profile("default")
 public class SecurityJwtConfig {
+
     @Value("${app.jwt.secret}")
     private String jwtSecret;
-
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -63,5 +63,4 @@ public class SecurityJwtConfig {
         SecretKeySpec key = new SecretKeySpec(secretBytes, "HmacSha256");
         return NimbusJwtDecoder.withSecretKey(key).build();
     }
-
 }
